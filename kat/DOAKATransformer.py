@@ -3,7 +3,6 @@ import torch.nn as nn
 import torch.nn.functional as F
 from typing import Union, Optional
 from functools import partial
-
 # Import KAT_Group from kat_rational
 from kat_rational import KAT_Group
 
@@ -86,8 +85,8 @@ class Block(nn.Module):
         x = self.norm2(x)
         return x
 
-# Custom KATTransformer for sequence data
-class KATTransformer(nn.Module):
+# Custom KANTransformer for sequence data
+class KANTransformer(nn.Module):
     def __init__(
             self,
             input_dim=8*65,
@@ -152,7 +151,7 @@ if __name__ == "__main__":
     dummy_input = torch.randn(128, 8, 500, 65)
     
     # Initialize model
-    model = KATTransformer(
+    model = KANTransformer(
         input_dim=8*65,
         d_model=256,
         num_heads=8,
