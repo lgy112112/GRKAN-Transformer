@@ -4,7 +4,7 @@ from torch import nn
 import os
 import json
 from .kat_1dgroup_torch import Rational_CUDA_A_1DGroup
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
 class rational_1dgroup(torch.autograd.Function):
     @staticmethod
     @torch.amp.custom_fwd(cast_inputs=torch.float32, device_type='cuda')
@@ -119,12 +119,7 @@ class KAT_Group(nn.Module):
         Returns:
             Tensor: Processed tensor after applying rational function.
         """
-        # print(f"input shape: {input.shape} - from kat_1dgroup.py")
         assert input.dim() == 3, "Input tensor must be 3D (batch, length, channels)."
-        
-        if input.device != self.weight_numerator.device:
-            print("Moving input to device")
-            input = input.to(self.weight_numerator.device)
     
         # Repeat the weights for all groups
         weight_numerator = self.weight_numerator.repeat(self.num_groups, 1)
